@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "ci-build-helper": "^0.2.2",
+    "ci-build-helper": "^0.2.3",
     "gulp": "^3.8.10",
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "^4.3.1",
