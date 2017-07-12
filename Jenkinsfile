@@ -63,29 +63,32 @@ def prepare() {
     fi
     '''
 
-    sh '''#!/bin/bash -ex
-    if [[ ! -f /usr/local/bin/oc ]]; then
-        echo "oc command not installed."
-        cd /opt
-        # Delete any openshift related installer
-        rm -fr openshift* /usr/local/bin/oc
-        
-        # Install openshift commandline
-        wget ${OC_DOWNLOAD_URL}
-        tar -xzf ${OC_BINARY}
-        cd $(ls | grep openshift)
-        ln -sv $(pwd)/oc /usr/local/bin/oc
-    fi
-    oc login -u $OSE_LOGIN -p $OSE_PASSWORD $OSE_MASTER --insecure-skip-tls-verify > /dev/null 2>&1
-    oc policy add-role-to-user system:image-puller system:serviceaccount:yelp-camp-staging:default --namespace=yelp-camp-dev
-    oc policy add-role-to-user system:image-puller system:serviceaccount:yelp-camp-prod:default --namespace=yelp-camp-dev
-    '''
+	withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'ose-admin-cred', passwordVariable: 'OSE_PASSWORD', usernameVariable: 'OSE_LOGIN']]) {
+		sh '''#!/bin/bash -ex
+		if [[ ! -f /usr/local/bin/oc ]]; then
+			echo "oc command not installed."
+			cd /opt
+			# Delete any openshift related installer
+			rm -fr openshift* /usr/local/bin/oc
+			
+			# Install openshift commandline
+			wget ${OC_DOWNLOAD_URL}
+			tar -xzf ${OC_BINARY}
+			cd $(ls | grep openshift)
+			ln -sv $(pwd)/oc /usr/local/bin/oc
+		fi
+		oc login -u $OSE_LOGIN -p $OSE_PASSWORD $OSE_MASTER --insecure-skip-tls-verify > /dev/null 2>&1
+		oc policy add-role-to-user system:image-puller system:serviceaccount:yelp-camp-staging:default --namespace=yelp-camp-dev
+		oc policy add-role-to-user system:image-puller system:serviceaccount:yelp-camp-prod:default --namespace=yelp-camp-dev
+		'''
+	}
 }
 
 def verifyDeployment() {
-    sh '''#!/bin/bash -e
+    sh '''#!/bin/bash -ex
+	sleep 3
     LATEST_RC_NUM=$(oc get rc | grep node-yelp-camp | tail -1 | awk '{print $1}')
     POD_NAME=$(oc get pods | grep $LATEST_RC_NUM | grep -Ev "build|deploy" | awk '{print $1}')
-    until [[ $(oc get pod $POD_NAME | awk '{print $2}' | grep "1/1" | wc -l | tr -d ' ') -eq 1 ]]; do echo "waiting for the new deployment to be completed.."; sleep 3; done
+    until [[ $(oc get pod $POD_NAME | awk '{print $2}' | grep "1/1" | wc -l | tr -d ' ') -eq 1 ]]; do echo "waiting for the new deployment $POD_NAME to be completed.."; sleep 3; done
     '''
 }
