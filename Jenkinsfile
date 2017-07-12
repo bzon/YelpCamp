@@ -40,7 +40,9 @@ node ("docker") {
 			sh '''#!/bin/bash -e
 			FITNESSE_POD=$(oc get pods | grep fitnesse | grep -Ev "build|deploy" | awk '{print $1}')
 			oc exec $FITNESSE_POD -- mkdir -p /var/fitnesse_home/FitNesseRoot/YelpCampTesting
-			oc rsync ./fitnesse/YelpCampTesting/ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
+			pwd
+			ls -lrt
+			#oc rsync ./fitnesse/YelpCampTesting/ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
 			oc exec $FITNESSE_POD -- java -jar fitnesse-standalone.jar -c ".YelpCampTesting?suite&format=text" | tee -a results.txt
 			grep -nc "^F " results.txt
 			'''
