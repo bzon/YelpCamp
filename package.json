@@ -10,7 +10,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-      "zombie": "2.0.0-alpha11"
+    "ci-build-helper": "^0.2.2",
+    "gulp": "^3.8.10",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-mocha": "^4.3.1",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-shell": "^0.6.3",
+    "gulp-sonar": "^3.0.0",
+    "gulp-sync": "^0.1.4",
+    "gulp-util": "^3.0.8",
+    "zombie": "^5.0.5"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -24,8 +33,5 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "request": "^2.79.0"
-  },
-  "devDependencies": {
-    "zombie": "^5.0.5"
   }
 }
