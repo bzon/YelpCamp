@@ -40,7 +40,7 @@ node ("docker") {
 			sh '''#!/bin/bash -e
 			FITNESSE_POD=$(oc get pods | grep fitnesse | grep -Ev "build|deploy" | awk '{print $1}')
 			oc exec $FITNESSE_POD -- mkdir -p /var/fitnesse_home/FitNesseRoot/YelpCampTesting
-			oc rsync ./fitnesse/ YelpCampTesting/ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
+			oc rsync ./fitnesse/YelpCampTesting/ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
 			oc exec $FITNESSE_POD -- java -jar fitnesse-standalone.jar -c ".YelpCampTesting?suite&format=text" | tee -a results.txt
 			grep -nc "^F " results.txt
 			'''
@@ -100,9 +100,8 @@ def prepare() {
 
 def verifyDeployment() {
     sh '''#!/bin/bash -ex
-	sleep 3
-    LATEST_RC_NUM=$(oc get rc | grep node-yelp-camp | tail -1 | awk '{print $1}')
-    POD_NAME=$(oc get pods | grep $LATEST_RC_NUM | grep -Ev "build|deploy" | awk '{print $1}')
+	sleep 5
+    POD_NAME=$(oc get pods | grep node-yelp-camp | grep -Ev "deploy|build" | tail -1 | awk '{print $1}')
     until [[ $(oc get pod $POD_NAME | awk '{print $2}' | grep "1/1" | wc -l | tr -d ' ') -eq 1 ]]; do echo "waiting for the new deployment $POD_NAME to be completed.."; sleep 3; done
     '''
 }
