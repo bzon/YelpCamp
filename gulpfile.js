@@ -11,6 +11,7 @@ var gulp = require('gulp'),
 
 gulp.task('sonarqube', function () {
     var options = {}
+    build.sonar.jdbc.url = "jdbc:mysql://sonar-mysql:3306/sonar";
     options.sonar = build.sonar;
     return gulp.src('.')
         .pipe(sonar(options));
