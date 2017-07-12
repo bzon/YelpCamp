@@ -53,7 +53,7 @@ node ("docker") {
 }
 
 def prepare() {
-    sh '''#!/bin/bash -e
+    sh '''#!/bin/bash -ex
     if [[ ! -d ${NODE_HOME} ]]; then
         cd /opt && \
         wget "https://nodejs.org/dist/v7.10.0/node-v7.10.0-linux-x64.tar.gz" && \
@@ -63,7 +63,7 @@ def prepare() {
     fi
     '''
 
-    sh '''#!/bin/bash -e
+    sh '''#!/bin/bash -ex
     if [[ ! -f /usr/local/bin/oc ]]; then
         echo "oc command not installed."
         cd /opt
