@@ -46,7 +46,7 @@ node ("docker") {
 		oc exec $FITNESSE_POD -- java -jar fitnesse-standalone.jar -c ".YelpCampTesting?suite&format=text" | tee -a results.txt
 		'''
 
-		failCount = sh(script: "cat results.txt | grep \"^F \" results.txt | wc -l", returnStdout: true).trim()
+		failCount = sh(script: "cat results.txt | grep \"^F \" results.txt | wc -l", returnStdout: true).trim().toInteger()
 
 		if (failCount > 0) {
 			error "Regression Test Failure"
