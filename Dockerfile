@@ -6,8 +6,7 @@ WORKDIR /usr/src/app
 RUN apt-get update
 RUN apt-get install -y unzip
 
-COPY yelpcamp.zip /usr/src/app
-RUN unzip /usr/src/app/yelpcamp.zip
+COPY ./ /usr/src/app/
 
 RUN npm i
 
