@@ -1,9 +1,49 @@
-<% include ./partials/top %> 
-<h1>Login!</h1>
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Login</button>
-</form>
+<% include ./partials/login %> 
+
+<div class="login-card-wide mdl-card mdl-shadow--2dp" style="margin: 0 auto; margin-top: 5%">
+  <!-- -->
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Welcome to YelpCamp!</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Sign in to your account to access campgrounds.
+    <div class="mdl-card__supporting-text" style="text-indent: 10px">
+      <% if (error && error.length > 0) { %>
+          <br />
+          <span style="color: rgba(200, 0, 1, 1); text-indent: 10px"><i class=material-icons></i><%= error %></span>
+      <% } %>
+    </div>
+  </div>
+  <div class="mdl-card__supporting-text" style="text-align: center; margin: 0 auto">
+    <form action="/login" method="POST">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+        <input title="username" name="username" class="mdl-textfield__input" type="text" id="username">
+        <label class="mdl-textfield__label" style="font-weight:400" for="username">Username</label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+        <input title="password" name="password" class="mdl-textfield__input" type="password" id="password">
+        <label class="mdl-textfield__label" style="font-weight:400" for="password">Password</label>
+    </div>
+    
+  </div>
+  <div class="mdl-card__supporting-text mdl-card--border">
+    <button class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect right-button">
+    SIGN IN
+    </button>
+  </div>
+  </form>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-js-button mdl-button--icon" id="signin-options">
+    <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect right-button"
+    for="signin-options">
+        <a href="/forgotPassword" style="text-decoration: none"><li class="mdl-menu__item">Forgot Password</li></a>
+        <a href="/register" style="text-decoration: none"><li class="mdl-menu__item">Register</li></a>
+    </ul>
+  </div>
+</div>
+
+
 
 <% include ./partials/bottom %> 

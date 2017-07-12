@@ -34,10 +34,10 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                    comment.save();
                    campground.comments.push(comment);
                    campground.save();
-                   console.log(comment);
-                   console.log("Added a new comment");
+                   //console.log(comment);
+                   //console.log("Added a new comment");
                    req.flash("success", "Successfully added a comment.");
-                   res.redirect("/campgrounds/" + req.params.id);
+                   res.redirect("/campgrounds/" + req.params.id + "?commentId=" + comment._id);
                }
             });
         }
@@ -50,7 +50,7 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, 
         if (err) {
             res.redirect("back");
         } else {
-            res.render("comments/edit", {comment: foundComment, campgroundId: req.params.id});    
+            res.render("comments/edit", {comment: foundComment, campgroundId: req.params.id, commentCamp: req.query.commentCamp});    
         }
     });
 });

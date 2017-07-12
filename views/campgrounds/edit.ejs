@@ -1,6 +1,6 @@
-<% include ../partials/top %>
+<% include ../partials/campground-new %>
 
-<div class="container">
+<!--<div class="container">
     <h1 style="text-align: center">Edit <%= campground.name %></h1>
     <div class="row">
         <div style="width: 30%; margin: 25px auto;">
@@ -21,7 +21,42 @@
                     <input class="btn btn-lg btn-primary btn-default btn-block" type="submit">
                 </div>
             </form>
-            <a href="/campgrounds">Go back</a>
+            <a href="/campgrounds/<%= campground._id %>">Go back</a>
+        </div>
+    </div>
+</div>-->
+
+<div class="container">
+    <div class="row" >
+        <div class="col-md-6" style="margin: 0 auto">
+            <div class="base-card mdl-card mdl-shadow--2dp" style="margin: 0 auto; margin-top: 5%">
+                <div class="mdl-card__title">
+                    <p style="font-family: 'Raleway'; font-weight: 400; font-size: 20px; margin-bottom: 0px"><a href="/campgrounds/<%= campground._id %>" style="color: #fff"><i class="fa fa-chevron-left" style="margin-right: 15px"></i></a>Modify Campground Details</p>
+                </div>
+                <div class="mdl-card__supporting-text" style="text-align: center; margin: 0 auto">
+                    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="campground[name]" class="mdl-textfield__input" value="<%= campground.name %>" type="text" id="name">
+                            
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="campground[price]" class="mdl-textfield__input" type="number" value="<%= campground.price %>" min="0.0" step="0.1" id="price">
+                            <!--<label class="mdl-textfield__label" style="font-weight:400" for="price">Price</label>-->
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="campground[image]" class="mdl-textfield__input" value="<%= campground.image %>" type="text" id="image">
+                            <!--<label class="mdl-textfield__label" style="font-weight:400" for="image">Image URL</label>-->
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input class="mdl-textfield__input" name="campground[description]" value="<%= campground.description %>" type="text" rows= "3" id="description" >
+                            <!--<label class="mdl-textfield__label" style="font-weight:400" for="description">Description</label>-->
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield" style="text-align: center">
+                            <button type="submit" style="position: unset" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Apply Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

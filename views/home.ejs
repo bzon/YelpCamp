@@ -4,10 +4,12 @@
         <title>YelpCamp</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="/stylesheets/landing.css">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     </head>
     <body>
-
+<!--<button>Get Started</button>-->
     <div class="container">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
@@ -21,10 +23,24 @@
         <% } %>
     </div>
 
-    <div id="landing-header">
-        <h1>Welcome to YelpCamp!</h1>
-        <a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
+    <div id="landing-header" style="margin: 0 auto">
+        <div style="background: rgba(0,0,0,0.25); padding: 2%">
+            <p style="font-size: 72px; font-family: Roboto; font-weight: 300; color: #FFFFFF; margin: 45px;">Welcome to YelpCamp!</p>
+            <div style="width: 45%; margin: 0 auto; padding: 10px">
+                <p style="color: #FFFFFF; text-align: center;">
+                    We help people find the right areas for them to camp. Yelp-ing or camp surfing is now more fun as we can interact with various 
+                    camp hosts around the area. Inspired by Yelp site to find places with good reviews. YelpCamp is the good way
+                    to go. 
+                </p>
+            </div>
+            
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="text-decoration: none" href="/login">
+                Get Started
+            </a>
+        </div>
     </div>
+
+    
 
     <ul class="slideshow">
       <li></li>

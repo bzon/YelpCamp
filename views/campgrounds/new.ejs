@@ -1,7 +1,45 @@
-<% include ../partials/top %>
+<% include ../partials/campground-new %>
 
 <div class="container">
-    <h1 style="text-align: center">Create a new Campground</h1>
+    <div class="row">
+        <div class="col-md-6" style="position: relative">
+            <p style="width: 100%; position: absolute; bottom: 20%; line-height: 102px; text-align: left; font-size: 68px; font-family: 'Pacifico'; font-weight: 400; color: aliceblue"> Campgrounds </p>
+            <p style="width: 100%; position: absolute; bottom: 0; text-shadow: 1px 1px rgba(0, 0, 0, 0.1); line-height: 42px; text-align: left; font-size: 28px; font-family: 'Raleway'; font-weight: 200; color: aliceblue"> A campground is a rentable place where you can offer an accommodation to guests. </p>
+        </div>
+        <div class="col-md-6">
+            <div class="base-card mdl-card mdl-shadow--2dp" style="margin: 0 auto; margin-top: 5%">
+                <div class="mdl-card__title">
+                    <p style="font-family: 'Raleway'; font-weight: 400; font-size: 20px; margin-bottom: 0px"><i class="fa fa-pencil-square-o" style="margin-right: 15px"></i>Register a Campground</p>
+                </div>
+                <div class="mdl-card__supporting-text" style="text-align: center; margin: 0 auto">
+                    <form action="/campgrounds" method="POST">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="name" class="mdl-textfield__input" type="text" id="name">
+                            <label class="mdl-textfield__label" style="font-weight:400" for="name">Campground Name</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="price" class="mdl-textfield__input" type="number" min="0.0" step="0.1" id="price">
+                            <label class="mdl-textfield__label" style="font-weight:400" for="price">Price</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+                            <input name="image" class="mdl-textfield__input" type="text" id="image">
+                            <label class="mdl-textfield__label" style="font-weight:400" for="image">Image URL</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 124px">
+                            <textarea class="mdl-textfield__input" name="description" type="text" rows= "3" id="description" ></textarea>
+                            <label class="mdl-textfield__label" style="font-weight:400" for="description">Description</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield" style="text-align: center">
+                            <button type="submit" style="position: unset" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container">
     <div class="row">
         <div style="width: 30%; margin: 25px auto;">
             <form action="/campgrounds" method="POST">
@@ -24,6 +62,6 @@
             <a href="/campgrounds">Go back</a>
         </div>
     </div>
-</div>
+</div>-->
 
 <% include ../partials/bottom %>

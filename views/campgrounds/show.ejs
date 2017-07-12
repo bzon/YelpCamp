@@ -1,39 +1,101 @@
 <% include ../partials/top %>
 
-<div class="container">
+<div class="container" style="margin-top: 2%">
     <div class="row">
         <div class="col-md-3">
-            <p class="lead">YelpCamp</p>
-            <div class="list-group">
+            <p class="lead" style="font-family: 'Raleway'; font-weight: 300">Other Campgrounds</p>
+            <!--<div class="list-group">
                 <li class="list-group-item active">Info 1</li>
                 <li class="list-group-item">Info 2</li>
                 <li class="list-group-item">Info 3</li>
-            </div>
+            </div>-->
+            <% 
+                var ctr = 0;
+                campgrounds.forEach(function(campgroundsItem) { 
+                    if((ctr != 3) && (campgroundsItem.name != campground.name) && (campgroundsItem.author.username != currentUser.username)) {
+            %>
+           
+            
+                <a href="/campgrounds/<%= campgroundsItem._id %>" style="text-decoration: none">
+                    <div class="demo-card-image mdl-card mdl-shadow--2dp" style="margin-top: 15px; background: url('<%= campgroundsItem.image %>') center / cover">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <span class="demo-card-image__filename"><%= campgroundsItem.name %></span>
+                        </div>
+                    </div>
+                </a>
+            
+        <% 
+                    ctr += 1;
+                }
+            }); 
+                
+            if(ctr == 0) {
+        %>
+                <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%">
+                    <div class="mdl-card__title mdl-card--expand" style="background: #46B6AC; color: #fff;">
+                        <h2 class="mdl-card__title-text"><i class="fa fa-battery-1 fa-lg"></i>&nbsp; Almost Empty</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        No available campgrounds were sent by other providers.
+                    </div>
+                </div>
+
+                <p class="lead" style="margin-top: 15px; font-family: 'Raleway'; font-weight: 300"> Suggested Pages </p>
+                <a href="" style="text-decoration: none">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%">
+                        <div class="mdl-card__title mdl-card--expand" style="background: url('https://lh3.googleusercontent.com/XrLsdNW3LXmNzz1rMwRXA1ZKFY0Zz520lDW3r7k_psLwtDNSqsQNe1uxCRqJgGm_gWSPMCN81AIFueejpNqoIY9dfL8=w320-h180-p-rw'); color: #fff;">
+                            <h2 class="mdl-card__title-text">Wildlife Photography</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            Ben G.
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            Powered by Google+
+                        </div>
+                    </div>
+                </a>
+        <% } %>
         </div>
-        <div class="col-md-9">
-            <div id="showpage-thumbnail" class="thumbnail">
-                <img class="img-responsive" src="<%= campground.image %>">
-                <div class="caption-full">
-                    <h4 class="pull-right">$<%= campground.price %>/night</h4>
-                    <h4><a><%= campground.name %></a></h4>
-                    <p><%= campground.description %></p>
-                    <p>
-                        <em>Submitted By <%= campground.author.username %></em>
-                    </p>
+        <div class="col-md-6">
+            <div id="showpage-thumbnail" class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%; height: 70%;">
+                <div class="mdl-card__supporting-text mdl-card--border" style="width: 100%">
+                  <i class="material-icons" style="vertical-align: top; margin-right: 15px">face</i>
+                  <div style="display: inline-block">
+                    <p class="lead" style="margin: 0; vertical-align: top; font-family: 'Raleway'; font-weight: 300"><%= campground.name %></p>
+                    <p class="lead" style="margin: 0; vertical-align: top; font-family: 'Raleway'; font-weight: 300; font-size: 15px"><%= campground.author.username %></p>
+                  </div>
+                  <div style="float: right; vertical-align: middle">
                     <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                        <a class="btn btn-warning" href="/campgrounds/<%= campground._id%>/edit">Edit</a>
-                        <form id="delete-form" action="/campgrounds/<%= campground._id %>/?_method=DELETE" method="POST">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
+                    <form id="delete-form" action="/campgrounds/<%= campground._id %>/?_method=DELETE" method="POST">
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--icon" id="delete-campground" style="float: right">
+                            <i class="material-icons">delete forever</i>
+                        </button>
+                    </form>
+                    <a href="/campgrounds/<%= campground._id%>/edit" class="mdl-button mdl-js-button mdl-button--icon" id="edit-campground" style="float: right">
+                        <i class="material-icons">settings</i>
+                    </a>
+                    <div class="mdl-tooltip mdl-tooltip--bottom" data-mdl-for="edit-campground">Edit</div>
+                    <div class="mdl-tooltip mdl-tooltip--bottom" data-mdl-for="delete-campground">Delete</div>
                     <% } %>
+                  </div>
+                </div>
+                <div class="mdl-card__title mdl-card--expand" style="background: url('<%= campground.image %>') center / cover"></div>
+                <div class="mdl-card__supporting-text" style="width: 100%">
+                    <h4 class="pull-right">$<%= campground.price %>/night</h4>
+                    <h5>Description</h5>
+                    <h6><%= campground.description %></h6>
                 </div>
             </div>
+            <br />
             <div class="well">
                 <div class="text-right">
-                    <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Leave a Review</a>
+                    <a style="text-decoration: none" class="mdl-button mdl-js-button mdl-button--colored mdl-button--raised" href="/campgrounds/<%= campground._id %>/comments/new">Leave a Review</a>
                 </div>
                 <hr>
-                <% campground.comments.forEach(function(comment) { %>
+                <% 
+                    var commentCtr = 0;
+                    campground.comments.forEach(function(comment) { %>
                     <div class="row">
                         <div class="col-md-12">
                             <strong><%= comment.author.username %></strong>
@@ -42,17 +104,84 @@
                                 <%= comment.text %>
                             </p>
                             <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                                <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
-                                    Edit
-                                </a>
                                 <form id="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-xs btn-danger">Delete</button>
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon" id="delete-campground-comment-<%= commentCtr %>" style="float: right">
+                                        <i class="material-icons">delete forever</i>
+                                    </button>
                                 </form>
-                            <% } %>
+                                <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit?commentCamp=<%= campground.name %>" class="mdl-button mdl-js-button mdl-button--icon" id="edit-campground-comment-<%= commentCtr %>" style="float: right">
+                                    <i class="material-icons">settings</i>
+                                </a>
+                                <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="edit-campground-comment-<%= commentCtr %>">Edit</div>
+                                <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="delete-campground-comment-<%= commentCtr %>">Delete</div>
+                            <% commentCtr += 1; } %>
                         </div>
                     </div>
                 <% }) %>
             </div>
+        </div>
+        <div class="col-md-3" style="margin-bottom: 25px">
+            <p class="lead" style="font-family: 'Raleway'; font-weight: 300">Your Campgrounds</p>
+            <%
+                var owned = 0;
+                campgrounds.forEach(function(campgroundsItem) { 
+                    if((campgroundsItem.name != campground.name) && (campgroundsItem.author.username == currentUser.username)) {
+            %>
+                        <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%; margin-top: 15px;">
+                            <a href="/campgrounds/<%= campgroundsItem._id %>" style="text-decoration: none">                            
+                                <div class="mdl-card__supporting-text" style="width: 100%; ">
+                                    <i class="material-icons" style="margin-right: 15px">face</i>
+                                    <span class="lead" style="vertical-align: top; font-family: 'Raleway'; font-weight: 300"><%= campgroundsItem.name %></span>
+                                </div>
+                                <div class="mdl-card__title mdl-card--expand" style="height: 150px; background: url('<%= campgroundsItem.image %>') center / cover;"></div>
+                             </a>
+                            <div class="mdl-card__supporting-text" style="width: 100%;">
+                                <button class="mdl-button" style="font-family: 'Raleway'; font-weight: 300; float: left">
+                                    $<%= campgroundsItem.price %>/night
+                                </button>
+                                <form id="delete-form" action="/campgrounds/<%= campgroundsItem._id %>/?_method=DELETE" method="POST">
+                                    <button type="submit" class="mdl-button mdl-js-button mdl-button--icon" id="delete-campground-<%= owned %>" style="float: right">
+                                        <i class="material-icons">delete forever</i>
+                                    </button>
+                                </form>
+                                <a href="/campgrounds/<%= campgroundsItem._id%>/edit" class="mdl-button mdl-js-button mdl-button--icon" id="edit-campground-<%= owned %>" style="float: right">
+                                    <i class="material-icons">settings</i>
+                                </a>
+                                <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="edit-campground-<%= owned %>">Edit</div>
+                                <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="delete-campground-<%= owned %>">Delete</div>
+                            </div>
+                        </div>
+            <%
+                        owned += 1;
+                    }
+                });
+
+                if (owned == 0) {
+            %>
+                <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%">
+                    <div class="mdl-card__title mdl-card--expand" style="background: #46B6AC; color: #fff;">
+                        <h2 class="mdl-card__title-text"><i class="fa fa-battery-1 fa-lg"></i>&nbsp; Almost Empty</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        You only have one campground shown in the board.
+                    </div>
+                </div>
+
+                <p class="lead" style="margin-top: 15px; font-family: 'Raleway'; font-weight: 300"> Suggested Pages </p>
+                <a href="" style="text-decoration: none">
+                    <div class="demo-card-square mdl-card mdl-shadow--2dp" style="width: 100%">
+                        <div class="mdl-card__title mdl-card--expand" style="background: url('https://lh3.googleusercontent.com/XrLsdNW3LXmNzz1rMwRXA1ZKFY0Zz520lDW3r7k_psLwtDNSqsQNe1uxCRqJgGm_gWSPMCN81AIFueejpNqoIY9dfL8=w320-h180-p-rw'); color: #fff;">
+                            <h2 class="mdl-card__title-text">Wildlife Photography</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            Ben G.
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            Powered by Google+
+                        </div>
+                    </div>
+                </a>
+            <% } %>
         </div>
     </div>
 </div>

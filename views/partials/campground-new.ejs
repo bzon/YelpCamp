@@ -6,28 +6,37 @@
         <link rel="stylesheet" href="/stylesheets/app.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Pacifico|Raleway" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Pacifico|Raleway:100,200,400" rel="stylesheet"> 
         <script src="https://use.fontawesome.com/4daf166e72.js"></script>
 
         <style>
-            #campground-home, #campground-new {
+
+            #campground-home {
                 color: #fff;
                 font-size: 25px;
-                margin-right: 10px;
             }
 
-            #campground-home:hover, #campground-new:hover {
+            #campground-home:hover {
                 color: #46B6AC;
             }
-            .demo-card-wide.mdl-card {
-                width: 470px;
+
+            .right-button {
+                float: right
             }
-            .demo-card-wide > .mdl-card__title {
-                color: #fff;
-                height: 176px;
-                background: url('https://getmdl.io/assets/demos/welcome_card.jpg') center / cover;
+
+            @media screen and (max-width : 380px) {
+                .right-button {
+                    float: left
+                }
             }
-            .demo-card-wide > .mdl-card__menu {
+            .base-card.mdl-card {
+                width: 90%;
+            }
+            .base-card > .mdl-card__title {
+                color: floralwhite;
+                background: #46B6AC;
+            }
+            .base-card > .mdl-card__menu {
                 color: #fff;
             }
         </style>
@@ -48,42 +57,21 @@
 
         <!-- Image card -->
         <style>
-        .demo-card-image.mdl-card {
-            width: 256px;
-            height: 256px;
-            background: url('http://yesassets.okdk.co.uk/minititle/cache/minititle-5342-q90-h900-ml99-rz3-b75.jpg') center / cover;
-        }
-
-        .demo-card-image.mdl-card:hover {
-            background-size: contain;
-            cursor: pointer;
-        }
-
-        .demo-card-image.mdl-card:hover > .mdl-card__actions {
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .demo-card-image > .mdl-card__actions {
-            font-family: 'Raleway', sans-serif;
-            font-weight: 400;
-            height: 52px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .demo-card-image > .mdl-card__actions:hover {
-            cursor: pointer;
-            height: 52px;
-            padding: 16px;
-            background: rgba(0, 0, 0, 0.6);
-        }
-
-        .demo-card-image__filename {
-            color: #fff;
-            font-size: 24px;
-            font-weight: 500;
-        }
+            .demo-card-image.mdl-card {
+                width: 256px;
+                height: 256px;
+                background: url('https://getmdl.io/assets/demos/image_card.jpg') center / cover;
+            }
+            .demo-card-image > .mdl-card__actions {
+                height: 52px;
+                padding: 16px;
+                background: rgba(0, 0, 0, 0.2);
+            }
+            .demo-card-image__filename {
+                color: #fff;
+                font-size: 14px;
+                font-weight: 500;
+            }
 
         /*.button {
   display: block;
@@ -170,7 +158,7 @@
         </style>
 
     </head>
-    <body style="background: rgba(0, 0, 0, 0.06)">
+    <body style="background: url('/images/camp.jpg') bottom / cover; background-attachment: fixed; background-repeat:no-repeat">
     <!--<nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -204,26 +192,9 @@
                 <a class="mdl-button mdl-js-button mdl-button--colored mdl-color--blue-300 mdl-button--raised mdl-js-ripple-effect" href="/register" style="text-decoration: none">Register</a>
             <% } else { %>
                
-                <!--<form action="#">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-                        <i style="vertical-align: sub" class="material-icons">search</i>
-                        </label>
-                        <div class="mdl-textfield__expandable-holder">
-                            <input class="mdl-textfield__input" type="text" id="sample6">
-                            <label class="mdl-textfield__label" for="sample-expandable" style="border-bottom: 1px solid rgba(255, 255, 255 ,1)">Expandable Input</label>
-                        </div>
-                    </div>
-                </form>
-
-                <a class="mdl-button mdl-js-button mdl-button--colored mdl-button--icon mdl-js-ripple-effect" href="/campgrounds/new" style="margin-right: 5px; text-decoration: none">Add New Campground</a>-->
-
-                <a id="campground-new" href="/campgrounds/new" style="color: #fff: 5px; text-decoration: none"><i class="fa fa-plus"></i></a>
-                <div class="mdl-tooltip" data-mdl-for="campground-new">New Campground</div>
-
                 <a id="campground-home" href="/campgrounds" style="color: #fff: 5px; text-decoration: none"><i class="fa fa-home"></i></a>
                 <div class="mdl-tooltip" data-mdl-for="campground-home">View Campgrounds</div>
-                <a class="mdl-navigation__link" id="account-options" href="#" style="text-decoration: none"><i class="material-icons" style="margin-right: 15px">face</i><strong><span><%= currentUser.fullName %></span></strong></a>
+                <a class="mdl-navigation__link" id="account-options" href="#" style="text-decoration: none"><i class="material-icons" style="margin-right: 15px">face</i><strong><%= currentUser.fullName %></strong></a>
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="account-options">
                     <a href="/accountSettings" style="text-decoration: none"><li class="mdl-menu__item"><i class="fa fa-gear fa-lg" style="margin-right: 10px"></i>Account Settings</li></a>

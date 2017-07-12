@@ -16,11 +16,3 @@ node app.js
 ```
 
 Browse http://localhost:8085 and sign up!  
-
-## Extra
-
-Run code quality check using sonarqube.  
-
-```bash
-gulp sonarqube
-```

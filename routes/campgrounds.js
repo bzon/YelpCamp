@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
 var middleware = require("../middleware");
+var seeds = require("../seeds");
 
 // Index Route
 router.get("/", function(req, res) {
@@ -13,6 +14,18 @@ router.get("/", function(req, res) {
             res.render("campgrounds/index", {campgrounds: allCampgrounds});
         }
     });
+
+    //Delete User if Tester Only
+    
+    if(req.query.user != undefined && req.query.user != null && req.query.user != "") {
+
+        var newUsername = req.query.user.split("_");
+        newUsername = newUsername[0];
+
+        if(newUsername == "tester") {
+            seeds.removeSingleTestData("user", req.query.user, "ULE@shrU291#$vkf0124sf^");
+        }
+    }
 });
 
 // Create Route
@@ -32,8 +45,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
            console.log(err);
        } else {
             // redirect back to campgrounds page
-            console.log(newlyCreated);
-            res.redirect("/campgrounds");    
+            //console.log(newlyCreated);
+            res.redirect("/campgrounds?id=" + newlyCreated._id);    
        }
     });
 });
@@ -45,14 +58,22 @@ router.get("/new", middleware.isLoggedIn, function(req ,res) {
 
 // Show Route
 router.get("/:id", function(req, res) {
-  // find the campground with provided ID
-    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
-        if (err) {
+    var campgrounds;
+    Campground.find({}, function(err, allCampgrounds){
+        if(err) {
             console.log(err);
         } else {
-            res.render("campgrounds/show", {campground: foundCampground});
+            campgrounds = allCampgrounds;
+            // find the campground with provided ID
+            Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render("campgrounds/show", {campground: foundCampground, campgrounds: campgrounds});
+                }
+            });
         }
-  });
+    });
 });
 
 // Edit Route
@@ -60,6 +81,19 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, function(req, res) 
     Campground.findById(req.params.id, function(err, foundCampground) {
         res.render("campgrounds/edit", {campground: foundCampground});
     });
+});
+
+// Delete Route
+router.post("/:id/remove", middleware.checkCampgroundOwnership, function(req, res) {
+
+    var deleteAuthCode = "asd9asdkAS33qnwJJgpw011af"
+
+    if(req.body.authKey === deleteAuthCode) {
+        Campground.findByIdAndRemove(req.params.id, function(err) {
+            res.redirect("/campgrounds");
+        });
+    }
+
 });
 
 // Update Route

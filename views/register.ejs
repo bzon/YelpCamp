@@ -1,10 +1,58 @@
-<% include ./partials/top %> 
-<h1>Sign Up!</h1>
+<% include ./partials/login %> 
 
-<form action="/register" method="post">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Sign Up</button>
-</form
+<div class="register-card-wide mdl-card mdl-shadow--2dp" style="margin: 0 auto">
+  <!-- -->
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Register to YelpCamp!</h2>
+  </div>
+  <div class="mdl-card__supporting-text" style="text-indent: 10px">
+    <% if (error && error.length > 0) { %>
+        <br />
+        <span style="color: rgba(200, 0, 1, 1); text-indent: 10px"><i class=material-icons></i><%= error %></span>
+    <% } %>
+  </div>
+  <div class="mdl-card__supporting-text" style="text-align: center; margin: 0 auto">
+    <form action="/register" method="POST">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+          <input title="username" name="username" class="mdl-textfield__input" type="text" id="username">
+          <label class="mdl-textfield__label" style="font-weight:400" for="username">Username</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+          <input title="email" name="email" class="mdl-textfield__input" type="email" id="email">
+          <label class="mdl-textfield__label" style="font-weight:400" for="email">Email Address</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+          <input title="name" name="fullName" class="mdl-textfield__input" type="text" id="name">
+          <label class="mdl-textfield__label" style="font-weight:400" for="name">Full Name</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+          <input title="password" name="password" class="mdl-textfield__input" type="password" id="password">
+          <label class="mdl-textfield__label" style="font-weight:400" for="password">Password</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="height: 73px">
+          <input title="captchaByPass" name="captchaByPass" class="mdl-textfield__input" type="password" id="captchaByPass">
+          <label class="mdl-textfield__label" style="font-weight:400" for="captchaByPass">Test Key (Not Required)</label>
+      </div>
+      <div class="mdl-textfield g-recaptcha" data-sitekey="6LcbxCMUAAAAAMEusdRZszFvM6c8ED6aOop0ycTC" style="padding-bottom: 0px"></div>
+    </div>
+    <div class="mdl-card__supporting-text mdl-card--border">
+      <button class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect right-button" style="margin-bottom: 10px">
+      REGISTER
+      </button>
+    </div>
+  </form>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-js-button mdl-button--icon" id="signin-options">
+    <i class="material-icons">more_vert</i>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect right-button"
+    for="signin-options">
+        <a href="/forgotPassword" style="text-decoration: none"><li class="mdl-menu__item">Forgot Password</li></a>
+        <a href="/login" style="text-decoration: none"><li class="mdl-menu__item">Sign in</li></a>
+    </ul>
+  </div>
+</div>
+
+
 
 <% include ./partials/bottom %> 
