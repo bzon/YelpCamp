@@ -35,20 +35,20 @@ node ("docker") {
 
     stage "Regression Test"
 
-		try {
-			sh "oc project devops-services"
-			sh '''#!/bin/bash -e
-			FITNESSE_POD=$(oc get pods | grep fitnesse | grep -Ev "build|deploy" | awk '{print $1}')
-			oc exec $FITNESSE_POD -- mkdir -p /var/fitnesse_home/FitNesseRoot/YelpCampTesting
-			pwd
-			ls -lrt
-			#oc rsync ./fitnesse/YelpCampTesting/ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
-			oc exec $FITNESSE_POD -- java -jar fitnesse-standalone.jar -c ".YelpCampTesting?suite&format=text" | tee -a results.txt
-			grep -nc "^F " results.txt
-			'''
-		}
+		git 'https://github.com/bzon/YelpCampTesting'
+		sh "oc project devops-services"
+		sh '''#!/bin/bash -e
+		FITNESSE_POD=$(oc get pods | grep fitnesse | grep -Ev "build|deploy" | awk '{print $1}')
+		oc exec $FITNESSE_POD -- mkdir -p /var/fitnesse_home/FitNesseRoot/YelpCampTesting
+		pwd
+		ls -lrt
+		oc rsync ./ $FITNESSE_POD:/var/fitnesse_home/FitNesseRoot/YelpCampTesting/
+		oc exec $FITNESSE_POD -- java -jar fitnesse-standalone.jar -c ".YelpCampTesting?suite&format=text" | tee -a results.txt
+		'''
 
-		catch (err) {
+		failCount = sh(script: "cat results.txt | grep \"^F \" results.txt | wc -l", returnStdout: true).trim()
+
+		if (failCount > 0) {
 			error "Regression Test Failure"
 		}
 
