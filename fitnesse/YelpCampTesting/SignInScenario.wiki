@@ -1,0 +1,14 @@
+---
+Test
+---
+|script                          |browser test                |
+|seconds before page load timeout|30                          |
+|open                            |${YELP_URL}/login |
+|wait for visible                |SIGN IN                     |
+|show                            |take screenshot |result     |
+|enter                           |jervion.belaerys|as|username|
+|enter                           |Adopadmin123    |as|password|
+|show                            |take screenshot |result     |
+|click                           |SIGN IN                     |
+|wait for visible                |!-YelpCamp-!                |
+|show                            |take screenshot |result     |

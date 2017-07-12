@@ -1,0 +1,17 @@
+---
+Test
+---
+|script                          |browser test                               |
+|seconds before page load timeout|30                                         |
+|open                            |${YELP_URL}/register             |
+|wait for visible                |REGISTER                                   |
+|show                            |take screenshot           |result          |
+|enter                           |tester_danny.stormborn    |as|username     |
+|enter                           |danny.stormborn@gmail.com |as|email        |
+|enter                           |Danny Stormborn           |as|name         |
+|enter                           |Adopadmin123              |as|password     |
+|enter                           |0g6k9wkdJ9jwfjw31qawgJJJJx|as|captchaByPass|
+|show                            |take screenshot           |result          |
+|click                           |REGISTER                                   |
+|wait for visible                |Danny Stormborn                            |
+|show                            |take screenshot           |result          |

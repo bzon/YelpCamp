@@ -1,0 +1,8 @@
+Bootstrapping FitNesse, the fully integrated standalone wiki and acceptance testing framework.
+
+Starting Test System: slim:fitnesse.slim.SlimService.
+. 23:11:28 R:1    W:0    I:0    E:0    SuiteSetUp	(YelpCampTesting.SuiteSetUp)	2.907 seconds
+. 23:11:31 R:15   W:0    I:0    E:0    RegisterScenario	(YelpCampTesting.RegisterScenario)	16.132 seconds
+. 23:11:48 R:6    W:0    I:0    E:0    SignInScenario	(YelpCampTesting.SignInScenario)	4.034 seconds
+--------
+3 Tests,	0 Failures	23.636 seconds.

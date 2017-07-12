@@ -1,0 +1,11 @@
+|Import                       |
+|nl.hsac.fitnesse.fixture     |
+|nl.hsac.fitnesse.fixture.slim|
+
+|Import                                   |
+|nl.hsac.fitnesse.fixture.slim.web        |
+|nl.hsac.fitnesse.fixture.FixtureDebugTest|
+
+|script               |selenium driver setup|
+|connect to driver for|${BROWSER}|at|${GRID_URL}|
+|show                 |driver description   |

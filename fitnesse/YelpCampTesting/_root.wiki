@@ -1,0 +1,16 @@
+---
+Suite
+---
+!contents -R2 -g -p -f -h
+
+!path fixtures
+!path fixtures/*.jar
+
+Define all tests to be executed as SLIM:
+!define TEST_SYSTEM {slim}
+!define YELP_URL {http://yelp-camp-dev.ose.13.228.133.252.xip.io}
+!define GRID_URL {http://selgrid.ose.13.228.133.252.xip.io/wd/hub}
+!define BROWSER {firefox}
+
+
+
