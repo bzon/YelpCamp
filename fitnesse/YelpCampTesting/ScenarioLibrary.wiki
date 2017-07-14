@@ -1,0 +1,43 @@
+---
+Static
+---
+|scenario|Given|scenario|
+|@{scenario}            |
+
+|scenario|When|scenario|
+|@{scenario}           |
+
+|scenario|And|scenario|
+|@{scenario}          |
+
+|scenario|Then|scenario|
+|@{scenario}           |
+
+|scenario                        |a web page url|url|
+|seconds before page load timeout|30                |
+|open                            |@{url}            |
+
+|scenario        |a user registers with name|name|with username|username|and email|email|with password|password|
+|wait for visible|REGISTER                                                                                     |
+|enter           |@{username}               |as  |username                                                     |
+|enter           |@{email}                  |as  |email                                                        |
+|enter           |@{name}                   |as  |name                                                         |
+|enter           |@{password}               |as  |password                                                     |
+|enter           |0g6k9wkdJ9jwfjw31qawgJJJJx|as  |captchaByPass                                                |
+|show            |take screenshot           |result                                                            |
+|click           |REGISTER                                                                                     |
+
+|scenario        |the user       |name|should be registered and redirected to the|campgroundsPage|
+|wait for visible|@{name}                                                                        |
+|show            |location                                                                       |
+|show            |take screenshot|result                                                         |
+
+|scenario|a user signs in with username|username|and password|password|
+|enter   |@{username}                  |as      |username             |
+|enter   |@{password}                  |as      |password             |
+|show    |take screenshot              |result                        |
+|click   |SIGN IN                                                     |
+
+|scenario        |a user should be redirected to campgrounds home page|
+|wait for visible|!-YelpCamp-!                                        |
+|show            |take screenshot               |result               |

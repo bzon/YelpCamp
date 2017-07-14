@@ -1,14 +1,7 @@
 ---
 Test
 ---
-|script                          |browser test                |
-|seconds before page load timeout|30                          |
-|open                            |${YELP_URL}/login |
-|wait for visible                |SIGN IN                     |
-|show                            |take screenshot |result     |
-|enter                           |jervion.belaerys|as|username|
-|enter                           |Adopadmin123    |as|password|
-|show                            |take screenshot |result     |
-|click                           |SIGN IN                     |
-|wait for visible                |!-YelpCamp-!                |
-|show                            |take screenshot |result     |
+|script                                |browser test                                |
+|Given a web page url ${YELP_URL}/login/                                            |
+|When a user signs in with username tester_danny.stormborn and password Adopadmin123|
+|Then a user should be redirected to campgrounds home page                          |

@@ -1,17 +1,7 @@
 ---
 Test
 ---
-|script                          |browser test                               |
-|seconds before page load timeout|30                                         |
-|open                            |${YELP_URL}/register             |
-|wait for visible                |REGISTER                                   |
-|show                            |take screenshot           |result          |
-|enter                           |tester_danny.stormborn    |as|username     |
-|enter                           |danny.stormborn@gmail.com |as|email        |
-|enter                           |Danny Stormborn           |as|name         |
-|enter                           |Adopadmin123              |as|password     |
-|enter                           |0g6k9wkdJ9jwfjw31qawgJJJJx|as|captchaByPass|
-|show                            |take screenshot           |result          |
-|click                           |REGISTER                                   |
-|wait for visible                |Danny Stormborn                            |
-|show                            |take screenshot           |result          |
+|script                                                                |browser test                                                                |
+|Given a web page url http://yelp-camp-dev.ose.13.228.133.252.xip.io/register/                                                                      |
+|When a user registers with name Danny Stormborn with username tester_danny.stormborn and email danny.stormborn@gmail.com with password Adopadmin123|
+|Then the user Danny Stormborn should be registered and redirected to the campgrounds page                                                          |
