@@ -1,7 +1,0 @@
----
-Test
----
-|script                                |browser test                                |
-|Given a web page url ${YELP_URL}/login/                                            |
-|When a user signs in with username tester_danny.stormborn and password Adopadmin123|
-|Then a user should be redirected to campgrounds home page                          |
