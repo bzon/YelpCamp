@@ -1,6 +1,6 @@
 env.OC_DOWNLOAD_URL = "https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz"
 env.OC_BINARY = "openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz"
-env.OSE_MASTER = "https://ec2-13-228-133-252.ap-southeast-1.compute.amazonaws.com:8443"
+env.OSE_MASTER = "https://ec2-52-30-182-201.eu-west-1.compute.amazonaws.com:8443"
 env.NODE_HOME = '/opt/nodejs'
 
 node ("docker") {
